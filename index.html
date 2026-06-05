@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escapada a Bratislava y Viena</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght=700;800&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="./img/136881033_1db8a9bb-4888-4284-8146-8776b024d9b0.svg" type="image/x-icon">
+
+    <style type="text/tailwindcss">
+        @theme {
+            --font-sans: "Space Grotesk", sans-serif;
+            --font-display: "Syne", sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-t from-[#121b2c] via-[#1a0e26] to-[#121b2c] text-[#e0e1dd] h-dscreen w-screen flex items-center justify-center p-0 md:p-6 overflow-hidden font-sans">
+
+    <div
+        class="w-full max-w-7xl h-full md:h-[88vh] bg-[#111927]/90 rounded-none md:rounded-3xl border-0 md:border border-[#2d3d5a]/40 shadow-[0_40px_100px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col md:flex-row">
+
+        <div
+            class="relative w-full md:w-[55%] h-[45vh] md:h-full bg-[#04070d] overflow-hidden border-b md:border-b-0 md:border-r border-[#2d3d5a]/40">
+
+            <img id="carrusel-img" src="" alt="Imagen del lugar"
+                class="w-full h-full object-cover object-center transition-all duration-700 ease-out drop-shadow-[0_20px_50px_rgba(0,0,0,0.7)]">
+
+            <div
+                class="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-black/10 pointer-events-none z-15">
+            </div>
+        </div>
+
+        <div
+            class="w-full md:w-[45%] h-[55vh] md:h-full p-5 md:p-8 flex flex-col justify-between bg-[#0e1522]/95 backdrop-blur-md relative z-20 overflow-hidden">
+
+            <div class="flex items-center justify-between gap-4 border-b border-[#2d3d5a]/30 pb-4 mb-4 shrink-0">
+                <span class="text-[11px] font-mono font-bold tracking-widest text-[#dfb15b] uppercase">C.R.U.D</span>
+
+                <div id="crud-buttons"
+                    class="flex gap-1 bg-[#070b12]/90 p-1 rounded-xl border border-[#2d3d5a]/50 shadow-inner">
+                    <button id="agregar"
+                        class="w-7 h-7 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-500/30 text-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center"
+                        title="Agregar">➕</button>
+                    <button id="buscar"
+                        class="w-7 h-7 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/30 text-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center"
+                        title="Buscar">🔍</button>
+                    <button id="modificar"
+                        class="w-7 h-7 rounded-lg bg-amber-600/20 hover:bg-amber-600/40 text-amber-400 border border-amber-500/30 text-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center"
+                        title="Modificar">✏️</button>
+                    <button id="eliminar"
+                        class="w-7 h-7 rounded-lg bg-rose-600/20 hover:bg-rose-600/40 text-rose-400 border border-rose-500/30 text-xs transition-all cursor-pointer active:scale-95 flex items-center justify-center"
+                        title="Eliminar">🗑️</button>
+                </div>
+            </div>
+
+            <div class="grow flex flex-col justify-start space-y-4 min-h-0 overflow-hidden">
+                <div>
+                    <h2 id="nombre"
+                        class="text-2xl md:text-3xl font-black font-display text-transparent bg-clip-text bg-linear-to-r from-[#f4f4f6] via-[#ebd095] to-[#dfb15b] tracking-wide leading-tight mb-2">
+                        Cargando...
+                    </h2>
+                    <p id="descripcion"
+                        class="text-[#e0e1dd]/80 text-xs md:text-sm leading-relaxed font-light line-clamp-3">
+                        Conectando con la base de datos...
+                    </p>
+                </div>
+
+                <div
+                    class="bg-[#070b12]/60 rounded-xl p-4 border border-[#2d3d5a]/40 shadow-inner overflow-y-auto max-h-[110px] md:max-h-[38%]">
+                    <h3 class="text-[9px] font-bold text-[#dfb15b] tracking-widest uppercase mb-2 font-mono">
+                        ❖ DETALLES DEL DESTINO
+                    </h3>
+                    <ul id="caracteristicas" class="space-y-1.5 text-xs text-[#e0e1dd]/75 list-none font-sans">
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-4 border-t border-[#2d3d5a]/30 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0 mt-3">
+
+                <div id="status"
+                    class="font-mono text-[11px] text-[#dfb15b] bg-[#04070d] px-3.5 py-1.5 rounded-full border border-[#2d3d5a]/60 tracking-widest min-w-[60px] text-center shadow-md">
+                    0 / 0
+                </div>
+
+                <div class="grid grid-cols-5 gap-1 w-full sm:w-auto min-w-[230px]">
+                    <button id="inicio"
+                        class="py-2 rounded-lg bg-[#04070d] hover:bg-[#2d3d5a] border border-[#2d3d5a]/60 text-[#dfb15b] text-xs font-mono font-bold transition-all cursor-pointer text-center active:scale-95 shadow-sm">|&lt;</button>
+                    <button id="anterior"
+                        class="py-2  rounded-lg bg-[#dfb15b] hover:bg-[#ebd095] text-[#121b2c] font-bold text-xs transition-all cursor-pointer text-center active:scale-95 shadow-md">Ant</button>
+                    <button id="play"
+                        class="py-2 rounded-lg bg-[#1a2b47] hover:bg-[#253d63] border border-[#dfb15b]/40 text-[#dfb15b] font-bold text-xs transition-all cursor-pointer flex justify-center items-center active:scale-95 shadow-sm"><span
+                            id="play-icon">▶</span></button>
+                    <button id="siguiente"
+                        class="py-2 rounded-lg bg-[#dfb15b] hover:bg-[#ebd095] text-[#121b2c] font-bold text-xs transition-all cursor-pointer text-center active:scale-95 shadow-md">Sig</button>
+                    <button id="ultimo"
+                        class="py-2 rounded-lg bg-[#04070d] hover:bg-[#2d3d5a] border border-[#2d3d5a]/60 text-[#dfb15b] text-xs font-mono font-bold transition-all cursor-pointer text-center active:scale-95 shadow-sm">&gt;|</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
