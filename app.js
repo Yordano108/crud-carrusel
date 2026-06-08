@@ -141,6 +141,7 @@ function limpiarTexto(texto) {
         .replace(/[\u0300-\u036f]/g, "");
 }
 
+// APLICADO AQUÍ: Función modificada con transiciones asíncronas controladas
 function mostrarLugar(indice) {
     if (lugaresViaje.length === 0) {
         if (IMG) IMG.src = "";
@@ -157,31 +158,46 @@ function mostrarLugar(indice) {
     const lugar = lugaresViaje[indice];
 
     if (IMG) {
-        IMG.src = lugar.imagen;
-        IMG.alt = "Fotografía de " + lugar.nombre;
-    }
-    if (BG_IMG) {
-        BG_IMG.src = lugar.imagen;
+        imgElement = IMG;
+        imgElement.classList.remove("opacity-100");
+        imgElement.classList.add("opacity-0");
     }
 
-    if (NOMBRE) NOMBRE.textContent = lugar.nombre;
-    if (DESCRIPCION) DESCRIPCION.textContent = lugar.descripcion;
+    setTimeout(() => {
+        if (IMG) {
+            IMG.src = lugar.imagen;
+            IMG.alt = "Fotografía de " + lugar.nombre;
 
-    if (CARACTERISTICAS) {
-        CARACTERISTICAS.innerHTML = "";
-        lugar.caracteristicas.forEach(function (caracteristica) {
-            const li = document.createElement("li");
-            li.className = "flex items-start gap-2 text-sm text-[#e0e1dd]/80";
-            li.innerHTML =
-                '<span class="text-[#dfb15b] text-xs mt-1">✦</span> ' +
-                caracteristica;
-            CARACTERISTICAS.appendChild(li);
-        });
-    }
+            IMG.onload = () => {
+                IMG.classList.remove("opacity-0");
+                IMG.classList.add("opacity-100");
+            };
+        }
 
-    if (STATUS) {
-        STATUS.textContent = indice + 1 + " / " + lugaresViaje.length;
-    }
+        if (BG_IMG) {
+            BG_IMG.src = lugar.imagen;
+        }
+
+        if (NOMBRE) NOMBRE.textContent = lugar.nombre;
+        if (DESCRIPCION) DESCRIPCION.textContent = lugar.descripcion;
+
+        if (CARACTERISTICAS) {
+            CARACTERISTICAS.innerHTML = "";
+            lugar.caracteristicas.forEach(function (caracteristica) {
+                const li = document.createElement("li");
+                li.className =
+                    "flex items-start gap-2 text-sm text-[#e0e1dd]/80";
+                li.innerHTML =
+                    '<span class="text-[#dfb15b] text-xs mt-1">✦</span> ' +
+                    caracteristica;
+                CARACTERISTICAS.appendChild(li);
+            });
+        }
+
+        if (STATUS) {
+            STATUS.textContent = indice + 1 + " / " + lugaresViaje.length;
+        }
+    }, 150);
 }
 
 function buscar(nombreLugar) {
@@ -200,7 +216,7 @@ function crearLugar() {
     if (!nombre) return;
 
     if (buscar(nombre) !== -1) {
-        alert("❌ Error: '" + nombre + "' o un destino muy similar ya existe.");
+        alert("Error: '" + nombre + "' o un destino muy similar ya existe.");
         return;
     }
 
@@ -219,7 +235,7 @@ function crearLugar() {
     detenerAutoplay();
     indiceActual = lugaresViaje.length - 1;
     mostrarLugar(indiceActual);
-    alert("✅ Registro guardado exitosamente.");
+    alert("Registro guardado exitosamente.");
 }
 
 function leerLugar() {
@@ -265,7 +281,7 @@ function modificarLugar() {
 
         indiceActual = index;
         mostrarLugar(indiceActual);
-        alert("✏️ Registro actualizado.");
+        alert("Registro actualizado.");
     } else {
         alert("❌ El destino no existe.");
     }
@@ -289,10 +305,10 @@ function eliminarLugar() {
                 indiceActual = Math.max(0, lugaresViaje.length - 1);
             }
             mostrarLugar(indiceActual);
-            alert("🗑️ Destino eliminado.");
+            alert("Destino eliminado.");
         }
     } else {
-        alert("❌ El destino no existe.");
+        alert("El destino no existe.");
     }
 }
 
